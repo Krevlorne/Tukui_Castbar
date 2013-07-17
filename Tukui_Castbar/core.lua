@@ -1,4 +1,5 @@
 -- Standalone Castbar for Tukui by Krevlorne @ EU-Ulduar
+-- With support of Sinaris @ Das Syndikat and Vaecia @ Blackmoore
 -- Credits to Tukz, Syne, Elv22, Sweeper and all other great people of the Tukui community.
 
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
@@ -30,6 +31,9 @@ local function placeCastbar(unit)
 
     local castbarpanel = CreateFrame("Frame", castbar:GetName().."_Panel", castbar)
     castbarpanel:CreateShadow("Default")
+    castbarpanel:SetFrameStrata("BACKGROUND")
+    castbarpanel:SetFrameLevel(1)
+
     local anchor = CreateFrame("Button", castbar:GetName().."_PanelAnchor", UIParent)
     anchor:SetTemplate("Default")
     anchor:SetBackdropBorderColor(1, 0, 0, 1)
@@ -44,19 +48,27 @@ local function placeCastbar(unit)
     if unit == "player" then
         anchor:SetSize(config["player"]["width"], config["player"]["height"])
         anchor:SetPoint("CENTER", UIParent, "CENTER", 0, -200)
-        castbarpanel:CreatePanel("Default", config["player"]["width"], config["player"]["height"], "CENTER", anchor, "CENTER", 0, 0)
+        castbarpanel:SetTemplate("Default")
+        castbarpanel:SetSize(config["player"]["width"], config["player"]["height"])
+        castbarpanel:SetPoint("CENTER", anchor, "CENTER", 0, 0)
     elseif (unit == "target") then
         anchor:SetSize(config["target"]["width"], config["target"]["height"])
         anchor:SetPoint("CENTER", UIParent, "CENTER", 0, -150)
-        castbarpanel:CreatePanel("Default", config["target"]["width"], config["target"]["height"], "CENTER", anchor, "CENTER", 0, 0)
+        castbarpanel:SetTemplate("Default")
+        castbarpanel:SetSize(config["target"]["width"], config["target"]["height"])
+        castbarpanel:SetPoint("CENTER", anchor, "CENTER", 0, 0)
     elseif (unit == "focus") then
         anchor:SetSize(config["focus"]["width"], config["focus"]["height"])
         anchor:SetPoint("CENTER", UIParent, "CENTER", 0, 250)
-        castbarpanel:CreatePanel("Default", config["focus"]["width"], config["focus"]["height"], "CENTER", anchor, "CENTER", 0, 0)
+        castbarpanel:SetTemplate("Default")
+        castbarpanel:SetSize(config["focus"]["width"], config["focus"]["height"])
+        castbarpanel:SetPoint("CENTER", anchor, "CENTER", 0, 0)
     elseif (unit == "focustarget") then
         anchor:SetSize(config["focustarget"]["width"], config["focustarget"]["height"])
         anchor:SetPoint("CENTER", UIParent, "CENTER", 0, 210)
-        castbarpanel:CreatePanel("Default", config["focustarget"]["width"], config["focustarget"]["height"], "CENTER", anchor, "CENTER", 0, 0)
+        castbarpanel:SetTemplate("Default")
+        castbarpanel:SetSize(config["focustarget"]["width"], config["focustarget"]["height"])
+        castbarpanel:SetPoint("CENTER", anchor, "CENTER", 0, 0)
     end
     
     castbar:ClearAllPoints()        
@@ -112,20 +124,20 @@ end
 
 if (config.separateplayer) then
     placeCastbar("player")
-    table.insert(T.MoverFrames, TukuiPlayerCastBar_PanelAnchor)
+    table.insert(T.AllowFrameMoving, TukuiPlayerCastBar_PanelAnchor)
 end
 
 if (config.separatetarget) then
     placeCastbar("target")
-    table.insert(T.MoverFrames, TukuiTargetCastBar_PanelAnchor)
+    table.insert(T.AllowFrameMoving, TukuiTargetCastBar_PanelAnchor)
 end
 
 if (config.separatefocus) then
     placeCastbar("focus")
-    table.insert(T.MoverFrames, TukuiFocusCastBar_PanelAnchor)
+    table.insert(T.AllowFrameMoving, TukuiFocusCastBar_PanelAnchor)
 end
 
 if (config.separatefocustarget and C["showfocustarget"]) then
     placeCastbar("focustarget")
-    table.insert(T.MoverFrames, TukuiFocusTargetCastBar_PanelAnchor)
+    table.insert(T.AllowFrameMoving, TukuiFocusTargetCastBar_PanelAnchor)
 end

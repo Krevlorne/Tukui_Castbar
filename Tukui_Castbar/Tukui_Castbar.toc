@@ -1,9 +1,11 @@
-## Interface: 40100
+## Interface: 50300
 ## Title: |cffC495DDTukui|r |cffffd200Castbar|r
 ## Notes: Moves the castbars into separate panels
 ## Author: Krevlorne @ EU-Ulduar
-## Version: 1.0
+# Contributors: Sinaris @ Das Syndikat, Vaecia @ Blackmoore, Sweeper
+## Version: 1.2
 ## RequiredDeps: Tukui
 
 config.lua
 core.lua
+
